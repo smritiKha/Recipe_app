@@ -1,0 +1,29 @@
+<resources>
+
+    <dimen name="corner_radius">14dp</dimen>
+    <dimen name="corner_radius_medium">20dp</dimen>
+    <dimen name="corner_radius_large">30dp</dimen>
+    <dimen name="toolbar_elevation">0dp</dimen>
+
+    <dimen name="grid_space_recipes">6dp</dimen>
+    <dimen name="grid_space_home">12dp</dimen>
+    <dimen name="recycler_item_size">192dp</dimen>
+
+    <dimen name="text_title_size">16sp</dimen>
+    <dimen name="text_sub_title_size">14sp</dimen>
+    <dimen name="text_content_title_size">18sp</dimen>
+    <dimen name="text_content_sub_title_size">14sp</dimen>
+
+    <dimen name="spacing_small">6dp</dimen>
+    <dimen name="spacing_middle">12dp</dimen>
+    <dimen name="spacing_large">14dp</dimen>
+    <dimen name="spacing_xxlarge">40dp</dimen>
+
+    <dimen name="no_margin">0dp</dimen>
+    <dimen name="margin_small">5dp</dimen>
+    <dimen name="margin_medium">10dp</dimen>
+    <dimen name="margin_large">20dp</dimen>
+
+    <dimen name="img_thumbnail_video_size">54dp</dimen>
+
+</resources>
