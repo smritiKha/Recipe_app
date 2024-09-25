@@ -2,15 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bannerAdView"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:layout_above="@+id/bannerAdView">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbarLayout"
@@ -32,8 +31,7 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/adView"
+            android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -74,9 +72,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none"
-                    android:scrollingCache="true" />
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none" />
 
                 <include
                     android:id="@+id/lyt_no_item"
@@ -101,4 +98,3 @@
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
-

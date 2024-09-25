@@ -66,9 +66,9 @@ public class ActivitySplash extends AppCompatActivity {
 
         imgSplash = findViewById(R.id.img_splash);
         if (sharedPref.getIsDarkTheme()) {
-            imgSplash.setImageResource(R.drawable.bg_splash_dark);
+            imgSplash.setImageResource(R.drawable.logo);
         } else {
-            imgSplash.setImageResource(R.drawable.bg_splash_default);
+            imgSplash.setImageResource(R.drawable.splash);
         }
 
         progressBar = findViewById(R.id.progressBar);
@@ -113,6 +113,7 @@ public class ActivitySplash extends AppCompatActivity {
 
     private void requestAPI(String apiUrl) {
         this.callbackCall = RestAdapter.createAPI(apiUrl).getConfig(BuildConfig.APPLICATION_ID, AppConfig.REST_API_KEY);
+
         this.callbackCall.enqueue(new Callback<CallbackConfig>() {
             public void onResponse(@NonNull Call<CallbackConfig> call, @NonNull Response<CallbackConfig> response) {
                 CallbackConfig resp = response.body();

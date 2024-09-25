@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="2dp"
-                    android:text="@string/app_name"
+                    android:text="Chef's Delights"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                     android:textSize="20sp" />
 
@@ -98,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="@string/exit_message"
+                        android:text="Are you sure you want to exit this app?"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                         android:textSize="@dimen/text_title_size" />
 

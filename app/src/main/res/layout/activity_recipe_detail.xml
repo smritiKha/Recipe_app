@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -60,7 +59,9 @@
                                 android:fontFamily="@font/custom_font"
                                 android:maxLines="1"
                                 android:text=""
-                                android:textColor="@color/color_white" />
+                                android:textColor="@color/color_white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
 
                         </RelativeLayout>
 
@@ -93,8 +94,7 @@
                         android:layout_width="@dimen/spacing_xxlarge"
                         android:layout_height="@dimen/spacing_xxlarge"
                         android:background="?selectableItemBackgroundBorderless"
-                        android:src="@drawable/ic_share"
-                        android:visibility="visible" />
+                        android:src="@drawable/ic_share" />
 
                 </LinearLayout>
 
@@ -131,8 +131,9 @@
                     <LinearLayout
                         android:id="@+id/lyt_main_content"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_middle">
 
                         <include layout="@layout/include_recipe_detail" />
 
@@ -143,9 +144,7 @@
                             android:layout_margin="@dimen/spacing_middle"
                             app:cardBackgroundColor="@android:color/transparent"
                             app:cardCornerRadius="@dimen/corner_radius"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="0dp"
-                            app:cardPreventCornerOverlap="false">
+                            app:cardElevation="0dp">
 
                             <LinearLayout
                                 android:id="@+id/native_ad_view"
@@ -161,7 +160,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:layout_marginBottom="6dp"
-                            android:orientation="vertical"
                             android:visibility="gone">
 
                             <TextView
@@ -179,7 +177,6 @@
                                 android:id="@+id/recycler_view_suggested"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/txt_suggested"
                                 android:layout_marginTop="4dp" />
 
                         </RelativeLayout>

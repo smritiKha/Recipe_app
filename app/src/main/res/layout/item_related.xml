@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <LinearLayout
         android:id="@+id/lyt_parent"
@@ -12,11 +13,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:foreground="?selectableItemBackground"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp">
+        android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
             android:layout_width="128dp"
@@ -24,13 +21,11 @@
             android:layout_gravity="center"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="@dimen/corner_radius"
-            app:cardElevation="0dp"
-            app:cardMaxElevation="0dp"
-            app:cardPreventCornerOverlap="false">
+            app:cardElevation="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="128dp"
-                android:layout_height="90dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -67,54 +62,32 @@
         </androidx.cardview.widget.CardView>
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1">
 
-            <RelativeLayout
-                android:id="@+id/lyt_title_row"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true">
-
-                    <TextView
-                        android:id="@+id/recipe_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="Title"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                        android:textSize="@dimen/text_title_size"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/recipe_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lyt_title_row"
-                android:layout_marginTop="6dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Title"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="@dimen/text_title_size"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/category_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="Category"
-                    android:textSize="@dimen/text_sub_title_size" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/category_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Category"
+                android:textSize="@dimen/text_sub_title_size"
+                android:layout_marginTop="4dp" />
 
         </RelativeLayout>
 

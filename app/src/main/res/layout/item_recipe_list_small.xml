@@ -22,35 +22,29 @@
             android:layout_width="128dp"
             android:layout_height="90dp">
 
-            <RelativeLayout
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/recipe_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_thumbnail"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Image.Rounded" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/recipe_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_thumbnail"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Image.Rounded" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.05"
+                android:background="@drawable/bg_image_overlay" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:alpha="0.05"
-                    android:background="@drawable/bg_image_overlay" />
-
-                <ImageView
-                    android:id="@+id/thumbnail_video"
-                    android:layout_width="@dimen/img_thumbnail_video_size"
-                    android:layout_height="@dimen/img_thumbnail_video_size"
-                    android:layout_centerInParent="true"
-                    android:alpha="0.8"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_thumbnail_video"
-                    android:visibility="gone" />
-
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/thumbnail_video"
+                android:layout_width="@dimen/img_thumbnail_video_size"
+                android:layout_height="@dimen/img_thumbnail_video_size"
+                android:layout_centerInParent="true"
+                android:alpha="0.8"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_thumbnail_video"
+                android:visibility="gone" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,49 +53,26 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_middle">
 
-            <RelativeLayout
-                android:id="@+id/lyt_title_row"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true">
-
-                    <TextView
-                        android:id="@+id/recipe_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="Title"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                        android:textSize="@dimen/text_title_size"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/recipe_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lyt_title_row"
-                android:layout_marginTop="6dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Title"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="@dimen/text_title_size"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp" />
 
-                <TextView
-                    android:id="@+id/category_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="Category"
-                    android:textSize="@dimen/text_sub_title_size" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/category_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Category"
+                android:textSize="@dimen/text_sub_title_size" />
 
         </RelativeLayout>
 

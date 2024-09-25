@@ -183,12 +183,10 @@ public class ActivitySearch extends AppCompatActivity {
 
         setupToolbar();
         initShimmerLayout();
-
     }
 
     public void setLoadMore(int current_page) {
         Log.d("page", "currentPage: " + current_page);
-        // Assuming final total items equal to real post items plus the ad
         int totalItemBeforeAds = (adapterRecipes.getItemCount() - current_page);
         if (postTotal > totalItemBeforeAds && current_page != 0) {
             int next_page = current_page + 1;
@@ -235,12 +233,15 @@ public class ActivitySearch extends AppCompatActivity {
                 CallbackRecipes resp = response.body();
                 if (resp != null && resp.status.equals("ok")) {
                     postTotal = resp.count_total;
-                    adapterRecipes.insertDataWithNativeAd(resp.posts);
-                    lytBannerAd.setVisibility(View.VISIBLE);
-                    if (resp.posts.size() == 0) {
-                        showNotFoundView(true);
+                    if (page_no == 1) {
+                        adapterRecipes.resetListData();
                     }
-                    ;
+                    adapterRecipes.insertData(resp.posts);
+                    if (resp.posts.size() == 0) {
+                        showEmptySearch();
+                    } else {
+                        showNotEmptySearch();
+                    }
                 } else {
                     onFailRequest(page_no);
                 }
@@ -249,16 +250,54 @@ public class ActivitySearch extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<CallbackRecipes> call, @NonNull Throwable t) {
-                onFailRequest(page_no);
-                swipeProgress(false);
+                if (!call.isCanceled()) onFailRequest(page_no);
             }
-
         });
+    }
+
+    private void searchAction(final int page_no) {
+        final String query = edtSearch.getText().toString().trim();
+        if (query.length() > 0) {
+            lytSuggestion.setVisibility(View.GONE);
+            if (page_no == 1) {
+                swipeProgress(true);
+                adapterRecipes.resetListData();
+            }
+            new Handler().postDelayed(() -> requestSearchApi(query, page_no), Constant.DELAY_TIME);
+        } else {
+            Snackbar.make(parentView, R.string.msg_search_input, Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showSuggestionSearch() {
+        lytSuggestion.setVisibility(View.VISIBLE);
+        recyclerViewSuggestion.setVisibility(View.VISIBLE);
+    }
+
+    private void showEmptySearch() {
+        lytShimmer.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    private void showNotEmptySearch() {
+        lytShimmer.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void swipeProgress(final boolean show) {
+        if (!show) {
+            lytShimmer.setVisibility(View.GONE);
+            lytShimmer.stopShimmer();
+        } else {
+            lytShimmer.setVisibility(View.VISIBLE);
+            lytShimmer.startShimmer();
+        }
     }
 
     private void onFailRequest(int page_no) {
         failedPage = page_no;
         adapterRecipes.setLoaded();
+        swipeProgress(false);
         if (Tools.isConnect(this)) {
             showFailedView(true, getString(R.string.failed_text));
         } else {
@@ -266,43 +305,17 @@ public class ActivitySearch extends AppCompatActivity {
         }
     }
 
-    private void searchAction(final int page_no) {
-        lytSuggestion.setVisibility(View.GONE);
-        showFailedView(false, "");
-        showNotFoundView(false);
-        final String query = edtSearch.getText().toString().trim();
-        if (!query.equals("")) {
-            if (page_no == 1) {
-                adapterSearch.addSearchHistory(query);
-                adapterRecipes.resetListData();
-                swipeProgress(true);
-            } else {
-                adapterRecipes.setLoading();
-            }
-            new Handler().postDelayed(() -> requestSearchApi(query, page_no), Constant.DELAY_TIME);
+    private void showFailedView(boolean show, String message) {
+        View lytFailed = findViewById(R.id.lyt_failed);
+        ((TextView) findViewById(R.id.failed_message)).setText(message);
+        if (show) {
+            recyclerView.setVisibility(View.GONE);
+            lytFailed.setVisibility(View.VISIBLE);
         } else {
-            Snackbar.make(parentView, getString(R.string.msg_search_input), Snackbar.LENGTH_SHORT).show();
-            showEmptySearch();
-            swipeProgress(false);
+            recyclerView.setVisibility(View.VISIBLE);
+            lytFailed.setVisibility(View.GONE);
         }
-    }
-
-    private void showSuggestionSearch() {
-        adapterSearch.refreshItems();
-        lytSuggestion.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(menuItem);
-        }
+        findViewById(R.id.failed_retry).setOnClickListener(view -> searchAction(failedPage));
     }
 
     private void hideKeyboard() {
@@ -313,98 +326,32 @@ public class ActivitySearch extends AppCompatActivity {
         }
     }
 
-    private void showFailedView(boolean show, String message) {
-        View lyt_failed = findViewById(R.id.lyt_failed);
-        ((TextView) findViewById(R.id.failed_message)).setText(message);
-        if (show) {
-            recyclerView.setVisibility(View.GONE);
-            lyt_failed.setVisibility(View.VISIBLE);
-        } else {
-            recyclerView.setVisibility(View.VISIBLE);
-            lyt_failed.setVisibility(View.GONE);
-        }
-        findViewById(R.id.failed_retry).setOnClickListener(view -> searchAction(failedPage));
-    }
-
-    private void showNotFoundView(boolean show) {
-        View lyt_no_item = findViewById(R.id.lyt_no_item);
-        ((TextView) findViewById(R.id.no_item_message)).setText(R.string.no_post_found);
-        if (show) {
-            recyclerView.setVisibility(View.GONE);
-            lyt_no_item.setVisibility(View.VISIBLE);
-        } else {
-            recyclerView.setVisibility(View.VISIBLE);
-            lyt_no_item.setVisibility(View.GONE);
-        }
-    }
-
-    private void showEmptySearch() {
-        View lytNotFound = findViewById(R.id.lyt_no_item);
-        ((TextView) findViewById(R.id.no_item_title)).setText(getString(R.string.search));
-        ((TextView) findViewById(R.id.no_item_message)).setText(getString(R.string.msg_search_input));
-        lytNotFound.setVisibility(View.VISIBLE);
-    }
-
-    private void swipeProgress(final boolean show) {
-        if (!show) {
-            lytShimmer.setVisibility(View.GONE);
-            lytShimmer.stopShimmer();
-            return;
-        } else {
-            lytShimmer.setVisibility(View.VISIBLE);
-            lytShimmer.startShimmer();
-        }
-    }
-
     private void initShimmerLayout() {
-        View lyt_shimmer_recipes_list_small = findViewById(R.id.lyt_shimmer_recipes_list_small);
-        View lyt_shimmer_recipes_list_big = findViewById(R.id.lyt_shimmer_recipes_list_big);
-        View lyt_shimmer_recipes_grid2 = findViewById(R.id.lyt_shimmer_recipes_grid2);
-        View lyt_shimmer_recipes_grid3 = findViewById(R.id.lyt_shimmer_recipes_grid3);
-        if (sharedPref.getRecipesViewType() == RECIPES_LIST_SMALL) {
-            lyt_shimmer_recipes_list_small.setVisibility(View.VISIBLE);
-            lyt_shimmer_recipes_list_big.setVisibility(View.GONE);
-            lyt_shimmer_recipes_grid2.setVisibility(View.GONE);
-            lyt_shimmer_recipes_grid3.setVisibility(View.GONE);
-        } else if (sharedPref.getRecipesViewType() == RECIPES_LIST_BIG) {
-            lyt_shimmer_recipes_list_small.setVisibility(View.GONE);
-            lyt_shimmer_recipes_list_big.setVisibility(View.VISIBLE);
-            lyt_shimmer_recipes_grid2.setVisibility(View.GONE);
-            lyt_shimmer_recipes_grid3.setVisibility(View.GONE);
-        } else if (sharedPref.getRecipesViewType() == RECIPES_GRID_2_COLUMN) {
-            lyt_shimmer_recipes_list_small.setVisibility(View.GONE);
-            lyt_shimmer_recipes_list_big.setVisibility(View.GONE);
-            lyt_shimmer_recipes_grid2.setVisibility(View.VISIBLE);
-            lyt_shimmer_recipes_grid3.setVisibility(View.GONE);
-        } else if (sharedPref.getRecipesViewType() == RECIPES_GRID_3_COLUMN) {
-            lyt_shimmer_recipes_list_small.setVisibility(View.GONE);
-            lyt_shimmer_recipes_list_big.setVisibility(View.GONE);
-            lyt_shimmer_recipes_grid2.setVisibility(View.GONE);
-            lyt_shimmer_recipes_grid3.setVisibility(View.VISIBLE);
+        lytShimmer = findViewById(R.id.shimmer_view_container);
+        swipeProgress(false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (callbackCall != null && !callbackCall.isCanceled()) {
+            callbackCall.cancel();
         }
+        adsManager.destroyBannerAd();
     }
 
     @Override
     public void onBackPressed() {
-        if (edtSearch.length() > 0) {
-            edtSearch.setText("");
-        } else {
+        super.onBackPressed();
+        adsManager.destroyBannerAd();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
             super.onBackPressed();
             adsManager.destroyBannerAd();
         }
+        return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        adsManager.resumeBannerAd(adsPref.getIsBannerSearch());
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        adsManager.destroyBannerAd();
-        ;
-    }
-
 }

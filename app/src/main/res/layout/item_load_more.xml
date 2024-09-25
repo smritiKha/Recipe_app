@@ -4,12 +4,25 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="16dp"
+    android:background="@android:color/transparent">
 
     <ProgressBar
         android:id="@+id/load_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/gnt_white"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/loading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Loading, please wait..."
+        android:textColor="@android:color/black"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="gone"/>
 
 </LinearLayout>

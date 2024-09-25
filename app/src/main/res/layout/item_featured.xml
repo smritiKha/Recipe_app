@@ -42,11 +42,6 @@
                         android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/ShapeAppearance.Image.Rounded" />
 
-<!--                    <View-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:background="@drawable/bg_gradient_soft" />-->
-
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

@@ -3,7 +3,7 @@ package com.app.yourrecipeapp.config;
 public class AppConfig {
 
     //your Server Key obtained from the admin panel
-    public static final String SERVER_KEY = "WVVoU01HTkViM1pNTW5oMldUSkdjMkZIT1hwa1F6bG9Xa2N4Y0dKc09YZFpWelZzWWtNNU5XSXpWbmxZTTBwc1dUSnNkMXBZVG1aWldFSjNXREpHZDJOSGVIQlpNa1l3WVZjNWRWTlhVbVpaTWpsMFRHMUdkMk5ETlRWaU0xWjVZMjFXYW1GWVFteFpXRUoz";
+    public static final String SERVER_KEY = "WVVoU01HTkViM1pNZWtVMVRXazBlRTVxWjNWTlZGbDFUVlJCZUV3elFtOWpSamw1V2xkT2NHTkhWa0pqU0VGMlpWYzVNV05zT1hsYVYwNXdZMGRXZWxneVJuZGpRMVY1VFVSS1psbFlRbmRpUjJ4cVdWaFNjR0l5TlVwYVJqbHFZakl3ZFZsWVFuZE1ibXgyWkZoS2VWcFhUbkJqUjFab1kwaEJQUT09";
 
     //your Rest API Key obtained from the admin panel
     public static final String REST_API_KEY = "cda11Uib7PLEA8pjKehSVfY0vdHsXI269J3MlqcGatWZBmxOgR";
@@ -37,6 +37,6 @@ public class AppConfig {
     public static final boolean FORCE_TO_SHOW_APP_OPEN_AD_ON_START = false;
 
     //splash screen delay time
-    public static final int DELAY_SPLASH_SCREEN = 1500;
+    public static final int DELAY_SPLASH_SCREEN = 2500;
 
 }
